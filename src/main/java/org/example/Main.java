@@ -28,16 +28,14 @@ public class Main {
 
             System.out.println("Курс на сегодня: " + todayRub);
             System.out.println("Курс на вчера: " + yesterdayRub);
-
             String compare;
             if (todayRub > yesterdayRub) {
                 compare = "More";
-                System.out.println("Больше");
+                System.out.println(getImg(compare));
             } else {
                 compare = "Less";
-                System.out.println("Меньше");
+                System.out.println(getImg(compare));
             }
-            getImg(compare);
         } catch (MalformedURLException ex) {
             throw new RuntimeException(ex);
         } catch (IOException ex) {
@@ -94,7 +92,6 @@ public class Main {
         int i = random.nextInt(0, dataLength);
         JSONObject data = (JSONObject) jsonArray.get(i);
         String img = data.get("url").toString();
-        System.out.println(img);
         return img;
     }
 }
