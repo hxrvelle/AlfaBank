@@ -29,15 +29,15 @@ public class Main {
             System.out.println("Курс на сегодня: " + todayRub);
             System.out.println("Курс на вчера: " + yesterdayRub);
 
+            String compare;
             if (todayRub > yesterdayRub) {
-                String compare = "More";
+                compare = "More";
                 System.out.println("Больше");
-                getImg(compare);
             } else {
-                String compare = "Less";
+                compare = "Less";
                 System.out.println("Меньше");
-                getImg(compare);
             }
+            getImg(compare);
         } catch (MalformedURLException ex) {
             throw new RuntimeException(ex);
         } catch (IOException ex) {
