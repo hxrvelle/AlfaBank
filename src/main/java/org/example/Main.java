@@ -51,15 +51,7 @@ public class Main {
             endpoint = "historical/" + date + ".json";
         }
         String spec = "https://openexchangerates.org/api/" + endpoint + "?app_id=" + appKey + "&symbols=RUB";
-        URL url = new URL(spec);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        InputStream is = connection.getInputStream();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        String line;
-        StringBuilder result = new StringBuilder();
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
-        }
+        StringBuilder result = getResult(spec);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(result.toString());
         String rates = jsonObject.get("rates").toString();
@@ -74,16 +66,8 @@ public class Main {
         if (compare.equals("More")) {
             endpoint = "rich";
         }
-        String path = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=" + endpoint;
-        URL url = new URL(path);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        InputStream is = connection.getInputStream();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-        String line;
-        StringBuilder result = new StringBuilder();
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
-        }
+        String spec = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=" + endpoint;
+        StringBuilder result = getResult(spec);
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(result.toString());
         JSONArray jsonArray = (JSONArray) jsonObject.get("data");
@@ -93,5 +77,17 @@ public class Main {
         JSONObject data = (JSONObject) jsonArray.get(i);
         String img = data.get("url").toString();
         return img;
+    }
+    static StringBuilder getResult (String spec) throws IOException {
+        URL url = new URL(spec);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        InputStream is = connection.getInputStream();
+        BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+        String line;
+        StringBuilder result = new StringBuilder();
+        while ((line = rd.readLine()) != null) {
+            result.append(line);
+        }
+        return result;
     }
 }
