@@ -71,13 +71,13 @@ public class Main {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(result.toString());
         JSONArray jsonArray = (JSONArray) jsonObject.get("data");
-        int dataLength = jsonArray.size();
         Random random = new Random();
-        int i = random.nextInt(0, dataLength);
+        int i = random.nextInt(0, jsonArray.size());
         JSONObject data = (JSONObject) jsonArray.get(i);
         String img = data.get("url").toString();
         return img;
     }
+
     static StringBuilder getResult (String spec) throws IOException {
         URL url = new URL(spec);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
